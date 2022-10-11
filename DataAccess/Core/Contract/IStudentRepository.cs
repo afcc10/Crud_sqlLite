@@ -12,11 +12,11 @@ namespace DataAccess.Core.Contract
     {
         Task<Response<List<StudentDto>>> GetStudents();
 
-        Task<Response<bool>> CreateStudent(StudentDto student);
+        Task<Response<StudentDto>> CreateStudent(StudentDto student);
 
         Task<Response<StudentDto>> GetByIdStudent(int id);
 
-        Task<Response<bool>> UpdateStudent(StudentDto student);
+        Task<Response<StudentDto>> UpdateStudent(StudentDto student);
 
         Task<Response<bool>> DeleteByIdStudent(int id);
     }

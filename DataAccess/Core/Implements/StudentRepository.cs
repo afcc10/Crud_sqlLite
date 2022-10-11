@@ -67,9 +67,9 @@ namespace DataAccess.Core.Implements
             }
         }
 
-        public async Task<Response<bool>> UpdateStudent(StudentDto _student)
+        public async Task<Response<StudentDto>> UpdateStudent(StudentDto _student)
         {
-            Response<bool> response = new();
+            Response<StudentDto> response = new();
             try
             {
                 var student = context.Student.Where(x => x.Id == _student.Id).FirstOrDefault();
@@ -85,7 +85,7 @@ namespace DataAccess.Core.Implements
                 response = new()
                 {
                     Status = true,
-                    ObjectResponse = true,
+                    ObjectResponse = _student,
                     Message = MessageExtension.AddMessageList(Message_es.UpdateSucces)
                 };
 
@@ -93,18 +93,18 @@ namespace DataAccess.Core.Implements
             }
             catch (Exception)
             {
-                return new Response<bool>
+                return new Response<StudentDto>
                 {
                     Status = false,
-                    ObjectResponse = false,
+                    ObjectResponse = null,
                     Message = MessageExtension.AddMessageList(Message_es.UpdateError)
                 };
             }
         }
 
-        public async Task<Response<bool>> CreateStudent(StudentDto _student)
+        public async Task<Response<StudentDto>> CreateStudent(StudentDto _student)
         {
-            Response<bool> response = new();
+            Response<StudentDto> response = new();
             try
             {
                 Student student = new();
@@ -117,10 +117,20 @@ namespace DataAccess.Core.Implements
                 context.Add(student);
                 context.SaveChanges();
 
+                StudentDto dto = new()
+                {
+                    Age = student.Age,
+                    Career = student.Career,
+                    FirstName = student.FirstName,
+                    Id = student.Id,
+                    LastName = student.LastName,
+                    UserName = student.UserName
+                };
+
                 response = new()
                 {
                     Status = true,
-                    ObjectResponse = true,
+                    ObjectResponse = dto,
                     Message = MessageExtension.AddMessageList(Message_es.CreateSucces)
                 };
 
@@ -128,10 +138,10 @@ namespace DataAccess.Core.Implements
             }
             catch (Exception)
             {
-                return new Response<bool>
+                return new Response<StudentDto>
                 {
                     Status = false,
-                    ObjectResponse = false,
+                    ObjectResponse = null,
                     Message = MessageExtension.AddMessageList(Message_es.CreateError)
                 };
             }

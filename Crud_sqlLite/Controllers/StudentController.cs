@@ -62,10 +62,10 @@ namespace Crud_sqlLite.Controllers
         /// <author>Andres Cabezas</author>
         [HttpPost]
         [Route("Create")]
-        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
-        public async Task<Response<bool>> Post(StudentDto student)
+        [ProducesResponseType(typeof(Response<StudentDto>), StatusCodes.Status200OK)]
+        public async Task<Response<StudentDto>> Post(StudentDto student)
         {
-            Response<bool> response;
+            Response<StudentDto> response;
             try
             {
                 response = await Service.CreateStudent(student);
@@ -73,8 +73,9 @@ namespace Crud_sqlLite.Controllers
             }
             catch (Exception ex)
             {
-                return new Response<bool>
+                return new Response<StudentDto>
                 {
+                    ObjectResponse = null,
                     Status = false,
                     Message = MessageExtension.AddMessageList(ex.Message)
                 };
@@ -88,10 +89,10 @@ namespace Crud_sqlLite.Controllers
         /// <author>Andres Cabezas</author>
         [HttpPut]
         [Route("Update")]
-        [ProducesResponseType(typeof(Response<bool>), StatusCodes.Status200OK)]
-        public async Task<Response<bool>> Update(StudentDto student)
+        [ProducesResponseType(typeof(Response<StudentDto>), StatusCodes.Status200OK)]
+        public async Task<Response<StudentDto>> Update(StudentDto student)
         {
-            Response<bool> response;
+            Response<StudentDto> response;
             try
             {
                 response = await Service.UpdateStudent(student);
@@ -99,8 +100,9 @@ namespace Crud_sqlLite.Controllers
             }
             catch (Exception ex)
             {
-                return new Response<bool>
+                return new Response<StudentDto>
                 {
+                    ObjectResponse = null,
                     Status = false,
                     Message = MessageExtension.AddMessageList(ex.Message)
                 };

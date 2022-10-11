@@ -31,13 +31,13 @@ namespace Business.Implement
             return result;
         }
 
-        public async Task<Response<bool>> UpdateStudent(StudentDto student)
+        public async Task<Response<StudentDto>> UpdateStudent(StudentDto student)
         {
             var result = await _studentRepository.UpdateStudent(student);
             return result;
         }
 
-        public async Task<Response<bool>> CreateStudent(StudentDto student)
+        public async Task<Response<StudentDto>> CreateStudent(StudentDto student)
         {
             var result = await _studentRepository.CreateStudent(student);
             return result;
